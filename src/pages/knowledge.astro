@@ -1,0 +1,347 @@
+---
+// src/pages/knowledge.astro
+---
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Base de Conhecimento - Chatbot</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background-color: #f5f7fa;
+        padding: 20px;
+      }
+
+      .knowledge-header {
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+      }
+
+      .knowledge-header h1 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+      }
+
+      .knowledge-header p {
+        color: #7f8c8d;
+        margin: 0;
+      }
+
+      .knowledge-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 20px;
+      }
+
+      .knowledge-card {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .knowledge-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      }
+
+      .knowledge-card h3 {
+        color: #2c3e50;
+        margin-top: 0;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .knowledge-card .content {
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 15px;
+      }
+
+      .knowledge-card .meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        color: #7f8c8d;
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+      }
+
+      .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background 0.3s;
+      }
+
+      .btn-edit {
+        background: #f39c12;
+        color: white;
+      }
+
+      .btn-edit:hover {
+        background: #e67e22;
+      }
+
+      .btn-delete {
+        background: #e74c3c;
+        color: white;
+      }
+
+      .btn-delete:hover {
+        background: #c0392b;
+      }
+
+      .add-card {
+        background: #3498db;
+        color: white;
+        padding: 40px 20px;
+        text-align: center;
+        cursor: pointer;
+        border: 2px dashed #bdc3c7;
+        background: white;
+        color: #7f8c8d;
+        transition: all 0.3s;
+      }
+
+      .add-card:hover {
+        background: #3498db;
+        color: white;
+        border-color: #3498db;
+      }
+
+      .add-card h3 {
+        margin: 0;
+        font-size: 18px;
+      }
+
+      .search-bar {
+        margin-bottom: 30px;
+      }
+
+      .search-bar input {
+        width: 100%;
+        padding: 12px 20px;
+        border: 1px solid #ddd;
+        border-radius: 25px;
+        font-size: 16px;
+        outline: none;
+        transition: border-color 0.3s;
+      }
+
+      .search-bar input:focus {
+        border-color: #3498db;
+      }
+
+      .category-filter {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+
+      .category-btn {
+        padding: 8px 16px;
+        border: 1px solid #ddd;
+        background: white;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .category-btn.active {
+        background: #3498db;
+        color: white;
+        border-color: #3498db;
+      }
+
+      @media (max-width: 768px) {
+        .knowledge-grid {
+          grid-template-columns: 1fr;
+        }
+
+        body {
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="knowledge-header">
+      <h1>📚 Base de Conhecimento</h1>
+      <p>Gerencie as informações que seu chatbot usa para responder perguntas</p>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar na base de conhecimento..." />
+    </div>
+
+    <div class="category-filter">
+      <button class="category-btn active">Todos</button>
+      <button class="category-btn">Horários</button>
+      <button class="category-btn">Produtos</button>
+      <button class="category-btn">Políticas</button>
+      <button class="category-btn">Suporte</button>
+    </div>
+
+    <div class="knowledge-grid">
+      <div class="knowledge-card">
+        <h3>🕒 Horário de Funcionamento</h3>
+        <div class="content">
+          <p><strong>Segunda a Sexta:</strong> 8h às 18h</p>
+          <p><strong>Sábado:</strong> 8h às 12h</p>
+          <p><strong>Domingo:</strong> Fechado</p>
+          <p><strong>Feriados:</strong> Fechado</p>
+        </div>
+        <div class="meta">
+          <span>Atualizado há 2 dias</span>
+          <span>12 consultas</span>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-edit">Editar</button>
+          <button class="btn btn-delete">Excluir</button>
+        </div>
+      </div>
+
+      <div class="knowledge-card">
+        <h3>📦 Política de Devolução</h3>
+        <div class="content">
+          <p>Aceitamos devoluções em até 30 dias após a compra, desde que o produto esteja em sua embalagem original e sem sinais de uso.</p>
+          <p>Para iniciar o processo de devolução, entre em contato conosco pelo WhatsApp ou chat online.</p>
+        </div>
+        <div class="meta">
+          <span>Atualizado há 1 semana</span>
+          <span>45 consultas</span>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-edit">Editar</button>
+          <button class="btn btn-delete">Excluir</button>
+        </div>
+      </div>
+
+      <div class="knowledge-card">
+        <h3>💳 Formas de Pagamento</h3>
+        <div class="content">
+          <p>Aceitamos as seguintes formas de pagamento:</p>
+          <ul>
+            <li>Cartão de Crédito (Visa, Mastercard, Elo)</li>
+            <li>Cartão de Débito</li>
+            <li>PIX</li>
+            <li>Boleto Bancário</li>
+          </ul>
+        </div>
+        <div class="meta">
+          <span>Atualizado há 3 dias</span>
+          <span>78 consultas</span>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-edit">Editar</button>
+          <button class="btn btn-delete">Excluir</button>
+        </div>
+      </div>
+
+      <div class="knowledge-card">
+        <h3>🚚 Prazo de Entrega</h3>
+        <div class="content">
+          <p><strong>Capital e Grande SP:</strong> 1-2 dias úteis</p>
+          <p><strong>Interior SP:</strong> 2-3 dias úteis</p>
+          <p><strong>Outros Estados:</strong> 3-7 dias úteis</p>
+          <p><strong>Frete Grátis:</strong> Compras acima de R$ 150,00</p>
+        </div>
+        <div class="meta">
+          <span>Atualizado há 5 dias</span>
+          <span>32 consultas</span>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-edit">Editar</button>
+          <button class="btn btn-delete">Excluir</button>
+        </div>
+      </div>
+
+      <div class="knowledge-card">
+        <h3>📞 Contato e Suporte</h3>
+        <div class="content">
+          <p><strong>WhatsApp:</strong> (11) 99999-9999</p>
+          <p><strong>Email:</strong> contato@lojavirtual.com</p>
+          <p><strong>Chat Online:</strong> Disponível 24/7</p>
+          <p><strong>Telefone:</strong> (11) 3333-3333</p>
+        </div>
+        <div class="meta">
+          <span>Atualizado há 1 dia</span>
+          <span>156 consultas</span>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-edit">Editar</button>
+          <button class="btn btn-delete">Excluir</button>
+        </div>
+      </div>
+
+      <div class="knowledge-card add-card" onclick="addNewKnowledge()">
+        <h3>➕ Adicionar Novo Item</h3>
+        <p>Clique aqui para adicionar uma nova informação à base de conhecimento</p>
+      </div>
+    </div>
+
+    <script>
+      function addNewKnowledge() {
+        alert('Funcionalidade de adicionar novo item será implementada em breve!');
+      }
+
+      // Simulação de busca
+      const searchInput = document.querySelector('.search-bar input');
+      searchInput.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const cards = document.querySelectorAll('.knowledge-card:not(.add-card)');
+
+        cards.forEach(card => {
+          const content = card.textContent.toLowerCase();
+          if (content.includes(searchTerm)) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+
+      // Filtros por categoria
+      const categoryBtns = document.querySelectorAll('.category-btn');
+      categoryBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          categoryBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+
+          const category = this.textContent.toLowerCase();
+          const cards = document.querySelectorAll('.knowledge-card:not(.add-card)');
+
+          if (category === 'todos') {
+            cards.forEach(card => card.style.display = 'block');
+          } else {
+            cards.forEach(card => {
+              const cardCategory = card.querySelector('h3').textContent.toLowerCase();
+              if (cardCategory.includes(category)) {
+                card.style.display = 'block';
+              } else {
+                card.style.display = 'none';
+              }
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

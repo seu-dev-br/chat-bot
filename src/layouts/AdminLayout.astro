@@ -1,0 +1,285 @@
+---
+// src/layouts/AdminLayout.astro
+---
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel Administrativo - Chatbot</title>
+    <style>
+      :global(body) {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background-color: #f5f7fa;
+      }
+
+      :global(.admin-layout) {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      :global(.admin-sidebar) {
+        width: 250px;
+        background-color: #2c3e50;
+        color: white;
+        padding: 20px 0;
+        position: fixed;
+        height: 100vh;
+        overflow-y: auto;
+      }
+
+      :global(.admin-sidebar h2) {
+        padding: 0 20px;
+        margin-bottom: 30px;
+        font-size: 18px;
+        border-bottom: 1px solid #34495e;
+        padding-bottom: 15px;
+      }
+
+      :global(.admin-sidebar nav ul) {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      :global(.admin-sidebar nav li) {
+        margin-bottom: 5px;
+      }
+
+      :global(.admin-sidebar nav a) {
+        display: block;
+        padding: 12px 20px;
+        color: #bdc3c7;
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+
+      :global(.admin-sidebar nav a:hover) {
+        background-color: #34495e;
+        color: white;
+      }
+
+      :global(.admin-sidebar nav a.active) {
+        background-color: #3498db;
+        color: white;
+        border-left: 4px solid #2980b9;
+      }
+
+      :global(.admin-main) {
+        flex: 1;
+        margin-left: 250px;
+        padding: 30px;
+      }
+
+      :global(.dashboard-header) {
+        margin-bottom: 30px;
+      }
+
+      :global(.dashboard-header h1) {
+        color: #2c3e50;
+        margin-bottom: 5px;
+      }
+
+      :global(.dashboard-header p) {
+        color: #7f8c8d;
+        margin: 0;
+      }
+
+      :global(.dashboard-grid) {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 20px;
+      }
+
+      :global(.dashboard-card) {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+
+      :global(.dashboard-card h3) {
+        color: #2c3e50;
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 18px;
+      }
+
+      :global(.stats-grid) {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+      }
+
+      :global(.stat-item) {
+        text-align: center;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 6px;
+      }
+
+      :global(.stat-number) {
+        display: block;
+        font-size: 24px;
+        font-weight: bold;
+        color: #3498db;
+        margin-bottom: 5px;
+      }
+
+      :global(.stat-label) {
+        font-size: 12px;
+        color: #7f8c8d;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      :global(.config-section) {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      :global(.config-item) {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      :global(.config-item label) {
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 14px;
+      }
+
+      :global(.config-item input, .config-item select) {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+
+      :global(.knowledge-base) {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      :global(.kb-item) {
+        padding: 15px;
+        border: 1px solid #e1e5e9;
+        border-radius: 6px;
+        background: #f8f9fa;
+      }
+
+      :global(.kb-item h4) {
+        margin: 0 0 8px 0;
+        color: #2c3e50;
+      }
+
+      :global(.kb-item p) {
+        margin: 0 0 10px 0;
+        color: #7f8c8d;
+        font-size: 14px;
+      }
+
+      :global(.btn-edit) {
+        background: #f39c12;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: background 0.3s;
+      }
+
+      :global(.btn-edit:hover) {
+        background: #e67e22;
+      }
+
+      :global(.reports-section) {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      :global(.report-item) {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+        border: 1px solid #e1e5e9;
+        border-radius: 6px;
+        background: white;
+      }
+
+      :global(.report-icon) {
+        font-size: 24px;
+      }
+
+      :global(.report-item h4) {
+        margin: 0 0 5px 0;
+        color: #2c3e50;
+      }
+
+      :global(.report-item p) {
+        margin: 0;
+        color: #7f8c8d;
+        font-size: 14px;
+      }
+
+      :global(.btn-view) {
+        background: #3498db;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background 0.3s;
+      }
+
+      :global(.btn-view:hover) {
+        background: #2980b9;
+      }
+
+      @media (max-width: 768px) {
+        :global(.admin-sidebar) {
+          width: 100%;
+          height: auto;
+          position: relative;
+        }
+
+        :global(.admin-main) {
+          margin-left: 0;
+        }
+
+        :global(.dashboard-grid) {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="admin-layout">
+      <aside class="admin-sidebar">
+        <h2>🤖 Chatbot Admin</h2>
+        <nav>
+          <ul>
+            <li><a href="/admin" class="active">📊 Dashboard</a></li>
+            <li><a href="/admin/config">⚙️ Configurações</a></li>
+            <li><a href="/admin/knowledge">📚 Base de Conhecimento</a></li>
+            <li><a href="/admin/conversations">💬 Conversas</a></li>
+            <li><a href="/admin/reports">📈 Relatórios</a></li>
+            <li><a href="/admin/users">👥 Usuários</a></li>
+            <li><a href="/" style="margin-top: 30px;">🏠 Voltar ao Site</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main class="admin-main">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

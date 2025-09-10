@@ -1,0 +1,101 @@
+---
+// src/pages/admin.astro
+import AdminLayout from '../layouts/AdminLayout.astro';
+---
+<AdminLayout>
+  <div class="admin-dashboard">
+    <div class="dashboard-header">
+      <h1>🛠️ Painel Administrativo</h1>
+      <p>Gerencie seu chatbot virtual</p>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="dashboard-card">
+        <h3>📊 Estatísticas</h3>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-number">1,234</span>
+            <span class="stat-label">Conversas Hoje</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">98.5%</span>
+            <span class="stat-label">Satisfação</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Disponibilidade</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-card">
+        <h3>🤖 Configurações do Bot</h3>
+        <div class="config-section">
+          <div class="config-item">
+            <label>Nome do Bot:</label>
+            <input type="text" value="Atendente Virtual" readonly />
+          </div>
+          <div class="config-item">
+            <label>Tom de Voz:</label>
+            <select>
+              <option>Amigável</option>
+              <option>Profissional</option>
+              <option>Casual</option>
+            </select>
+          </div>
+          <div class="config-item">
+            <label>Idioma:</label>
+            <select>
+              <option>Português (BR)</option>
+              <option>English</option>
+              <option>Español</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-card">
+        <h3>📝 Base de Conhecimento</h3>
+        <div class="knowledge-base">
+          <div class="kb-item">
+            <h4>Horário de Funcionamento</h4>
+            <p>Seg-Sex: 8h às 18h | Sáb: 8h às 12h</p>
+            <button class="btn-edit">Editar</button>
+          </div>
+          <div class="kb-item">
+            <h4>Política de Devolução</h4>
+            <p>Devoluções em até 30 dias...</p>
+            <button class="btn-edit">Editar</button>
+          </div>
+          <div class="kb-item">
+            <h4>Formas de Pagamento</h4>
+            <p>Cartão, PIX, Boleto...</p>
+            <button class="btn-edit">Editar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-card">
+        <h3>📈 Relatórios</h3>
+        <div class="reports-section">
+          <div class="report-item">
+            <span class="report-icon">📊</span>
+            <div>
+              <h4>Conversas por Dia</h4>
+              <p>Visualize o volume de atendimentos</p>
+            </div>
+            <button class="btn-view">Ver Relatório</button>
+          </div>
+          <div class="report-item">
+            <span class="report-icon">⭐</span>
+            <div>
+              <h4>Avaliações</h4>
+              <p>Feedback dos usuários</p>
+            </div>
+            <button class="btn-view">Ver Detalhes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</AdminLayout>
